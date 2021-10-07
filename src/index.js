@@ -9,13 +9,31 @@ function menuCart(menuEl) {
   return srcMenu(menuEl);
 }
 //switchTheme
+const Theme = {
+  LIGHT: 'light-theme',
+  DARK: 'dark-theme',
+};
+const { LIGHT, DARK } = Theme;
 
-const theme = document.querySelector('body');
-const switcher = document.querySelector('.theme-switch__toggle');
+const body = document.querySelector('body');
+const toggle = document.querySelector('.theme-switch__toggle');
 
-switcher.addEventListener('click', switchTheam);
+toggle.addEventListener('change', switchTheam);
+
 function switchTheam() {
-  theme.classList.toggle('dark-theme');
+  if (toggle.checked) {
+    body.setAttribute('class', DARK);
+    localStorage.setItem('theme', DARK);
+  } else {
+    body.setAttribute('class', LIGHT);
+    localStorage.setItem('theme', LIGHT);
+  }
 }
 
-//LocaleStorage
+if (localStorage.theme === DARK) {
+  toggle.checked = true;
+  body.setAttribute('class', DARK);
+} else {
+  toggle.checked = false;
+  body.setAttribute('class', LIGHT);
+}
